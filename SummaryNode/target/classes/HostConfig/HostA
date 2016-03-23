@@ -1,0 +1,51 @@
+{
+    "HOST_NAME": "leo-System-Product-Name.cscw.cs",
+    "METRICS": [
+        {
+            "METRIC_NAME": "cpu_wio",
+            "SECTIONS": [
+                {
+                    "DOMAINS": [
+                        {
+                            "MIN": "0"
+                        }
+                    ],
+                    "ACTIONS": [
+                        {
+                            "ACTION_TYPE": "SETTINGS_ALTER",
+                            "SETTINGS": [
+                                {
+                                    "METRIC_NAME": "somemetric",
+                                    "ACT": "ENABLE",
+                                    "HOST_NAME": "somehost",
+                                    "PARAM": "theparam"
+                                }
+                            ]
+                        }
+                    ]
+                }
+		,
+		{
+                    "DOMAINS": [
+                        {
+                            "MIN": "0"
+                        }
+                    ],
+                    "ACTIONS": [
+                        {
+                            "ACTION_TYPE": "SETTINGS_ALTER",
+                            "SETTINGS": [
+                                {
+                                    "METRIC_NAME": "somemetric1",
+                                    "ACT": "ENABLE",
+                                    "HOST_NAME": "somehost",
+                                    "PARAM": "theparam1"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
