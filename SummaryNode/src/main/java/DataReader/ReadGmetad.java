@@ -16,7 +16,12 @@ public class ReadGmetad {
     private JSONObject root;
     public ReadGmetad(String gmetadURI){
         response = ClientBuilder.newClient().target(gmetadURI).request().get();
-        root=XML.toJSONObject(response.readEntity(String.class));
+        try {
+            root = XML.toJSONObject(response.readEntity(String.class));
+        }
+        catch (Exception e){
+            root = null;
+        }
     }
 
     //获取一次Gmetad中包含所有host的JSONArray，获取不成功时返回null

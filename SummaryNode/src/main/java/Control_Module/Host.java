@@ -42,7 +42,7 @@ public class Host {
     hostConfig有效结构：
     {
         “HOST_NAME":"<name>",
-        "METRICS":
+        "METRICS":ff
             [
                 (metric)
                 {

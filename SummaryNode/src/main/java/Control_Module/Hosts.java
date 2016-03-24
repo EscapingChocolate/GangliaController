@@ -79,7 +79,7 @@ public class Hosts {
             }
         }
     }
-    public void SettingsUpdate(String gmetadURI){
+    public void SettingsUpdate(String gmetadURI,String settingsUpdateFilePath){
         this.readGmetad =new ReadGmetad(gmetadURI);
         if(readGmetad.getHostsArray()!=null) {
             for (Host host : hostSet) {
@@ -91,7 +91,7 @@ public class Hosts {
                 }
 
             }
-            WriteSettingsUpdate("/home/leo/IdeaProjects/SummaryNode/src/main/resources/SettingsOutput");
+            WriteSettingsUpdate(settingsUpdateFilePath);
         }
     }
 
@@ -121,7 +121,7 @@ public class Hosts {
                 FileChannel fileChannel = new FileOutputStream(folderPath  +"/"+ hostSettingsAlterRecord.getHostName()).getChannel();
                 fileChannel.write(ByteBuffer.wrap((new JSONArray(hostSettingsAlterRecord.getSettingsRecord())).toString().getBytes()));
                 fileChannel.close();
-                System.out.println("write settings");
+                System.out.println("write settings:");
             }
             catch (IOException e) {
                 System.out.println(e.toString());

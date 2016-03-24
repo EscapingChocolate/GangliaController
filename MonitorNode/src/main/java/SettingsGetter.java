@@ -12,12 +12,20 @@ import java.net.InetAddress;
 public class SettingsGetter {
     private Response response;
     private JSONArray root;
-    public SettingsGetter(String summaryNodeURI)throws Exception{
+    public SettingsGetter(String summaryNodeURI,String hostName){
+        /*
         InetAddress addr = InetAddress.getLocalHost();
         String ip=addr.getHostAddress().toString(); //获取本机ip
         String hostName=addr.getHostName().toString(); //获取本机计算机名称
-        response = ClientBuilder.newClient().target(summaryNodeURI+"/"+"somehost").request().get();
-        root= new JSONArray(response.readEntity(String.class));
+        */
+        try {
+            response = ClientBuilder.newClient().target(summaryNodeURI+"/"+hostName).request().get();
+            root= new JSONArray(response.readEntity(String.class));
+        }
+        catch (Exception e){
+            root=null;
+        }
+
     }
     public JSONArray getRoot(){
         return root;
