@@ -1,10 +1,6 @@
 import org.json.JSONArray;
-import org.json.JSONObject;
-
-
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
-import java.net.InetAddress;
 
 /**
  * Created by leo on 16-3-22.
