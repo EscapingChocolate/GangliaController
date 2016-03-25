@@ -6,28 +6,36 @@ import org.json.JSONObject;
  */
 public class GmondController {
     private JSONArray former = new JSONArray("[]");
-    GmondController(){
-    }
+
     private boolean CheckSame(JSONArray realTimeSettings){
         return realTimeSettings.toString().equals(former.toString());
-    }
-    private void MetricEnable(String metricName,String param){
-        System.out.println("Enable "+metricName+" "+param);
-    }
-
-    private void MetricDisable(String metricName,String param){
-        System.out.println(metricName+" "+param);
     }
 
     public void SingleSettingsDealt(JSONArray realTimeSettings){
         if(!CheckSame(realTimeSettings)) {
             for (Object settingObject : realTimeSettings) {
                 JSONObject setting = (JSONObject) settingObject;
-                if (setting.getString("ACT").equals("ENABLE")) {
-                    MetricEnable(setting.getString("METRIC_NAME"),setting.getString("PARAM"));
-                } else if (setting.getString("ACT").equals("DISABLE")) {
-                    MetricDisable(setting.getString("METRIC_NAME"),setting.getString("PARAM"));
+
+                String act=setting.getString("ACT");
+                String metricName=setting.getString("METRIC_NAME");
+                double param=setting.getDouble("PARAM");
+
+                if(act.equals("ENABLE")){
+                    MetricDealt.Enable(metricName);
                 }
+
+                else if(act.equals("DISABLE")){
+                    MetricDealt.Disable(metricName);
+                }
+
+                else if(act.equals("COLLECT_EVERY")){
+                    MetricDealt.CollectEvery(metricName,param);
+                }
+
+                else if(act.equals("VALUE_THRESHOLD")){
+                    MetricDealt.ValueThreshold(metricName,param);
+                }
+
             }
             this.former=realTimeSettings;
         }
