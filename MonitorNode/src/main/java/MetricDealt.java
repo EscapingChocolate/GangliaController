@@ -1,4 +1,5 @@
 import java.io.*;
+import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
 /**
@@ -6,8 +7,28 @@ import java.nio.channels.FileChannel;
  */
 public class MetricDealt {
 
-    static String confdPath ="/etc/ganglia/conf.d/";
-    static String confaPath ="/etc/ganglia/conf.a/";
+    //conf.d中配置为Enable，conf.a中配置为Disable
+    private static String confdPath = "/etc/ganglia/conf.d/";
+    private static String confaPath = "/etc/ganglia/conf.a/";
+
+    //功能脚本存储路径
+    private static String shPath = "/etc/ganglia/sh/";
+
+    private static void GmondRestart(){
+        try {
+            String[] cmd = new String[]{"sh", shPath+"GmondRestart.sh"};
+            Process proc = Runtime.getRuntime().exec(cmd);
+            /*
+            String s;
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+            while((s=bufferedReader.readLine()) != null)
+            System.out.println(s);
+             */
+        }
+        catch (Exception e){
+
+        }
+    }
 
     public static void Enable(String metricName){
         /*
@@ -15,32 +36,49 @@ public class MetricDealt {
         File directFile = new File(confdPath+metricName);
         availableFile.renameTo(directFile);
          */
-        String cmd = new String("mv "+confaPath+metricName+" "+confdPath+metricName);
         try {
-            Runtime.getRuntime().exec(cmd);
+            String cmd[]=new String[]{"sh",shPath+"Move.sh",confaPath+metricName+".conf",confdPath+metricName+".conf"};
+            Process process=Runtime.getRuntime().exec(cmd);
+            process.waitFor();
+            GmondRestart();
         }
         catch (Exception e){
 
         }
     }
     public static void Disable(String metricName){
-        String cmd = new String("mv "+confdPath+metricName+" "+confaPath+metricName);
         try {
-            Runtime.getRuntime().exec(cmd);
+            String cmd[]=new String[]{"sh",shPath+"Move.sh",confdPath+metricName+".conf",confaPath+metricName+".conf"};
+            Process process=Runtime.getRuntime().exec(cmd);
+            GmondRestart();
         }
         catch (Exception e){
 
         }
     }
-    public static void CollectEvery(String metricName,double period){
+
+
+    public static void ChangeProperty(String metricName,String propertyName,int param){
         try {
-            FileChannel fileChannel = new FileInputStream(confdPath+metricName).getChannel();
+            File theChangedFile = new File(confdPath + metricName+".conf");
+            BufferedReader reader = new BufferedReader(new FileReader(theChangedFile));
+            String lineString,wholeString="";
+            while((lineString=reader.readLine())!=null){
+                if(lineString.contains(propertyName))
+                {
+                    lineString=propertyName+" = "+param;
+                }
+                wholeString+=lineString+"\n";
+            }
+            System.out.println(wholeString);
+            reader.close();
+            FileChannel fileChannel = new FileOutputStream(confdPath+metricName+".conf").getChannel();
+            fileChannel.write(ByteBuffer.wrap(wholeString.getBytes()));
+            fileChannel.close();
+            GmondRestart();
         }
         catch (Exception e){
-
+            System.out.println(e.getMessage());
         }
-    }
-    public static void ValueThreshold(String metricName,double threshold){
-
     }
 }

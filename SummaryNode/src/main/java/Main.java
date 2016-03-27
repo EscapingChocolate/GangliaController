@@ -10,7 +10,7 @@ import java.nio.channels.FileChannel;
  */
 public class Main {
     public static void main(String[] args) throws Exception{
-        FileChannel fileChannel=new FileInputStream("/home/leo/Documents/GangliaController/SummaryNodeConfig").getChannel();
+        FileChannel fileChannel=new FileInputStream("/etc/ganglia/GangliaController/SummaryNodeConfig").getChannel();
         ByteBuffer buffer=ByteBuffer.allocate(1024);
         String jsonString="";
         while(fileChannel.read(buffer)!=-1)

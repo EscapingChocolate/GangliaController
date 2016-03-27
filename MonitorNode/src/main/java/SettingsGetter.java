@@ -8,6 +8,7 @@ import javax.ws.rs.core.Response;
 public class SettingsGetter {
     private Response response;
     private JSONArray root;
+    //检查获取json格式正确
     public SettingsGetter(String summaryNodeURI,String hostName){
         /*
         InetAddress addr = InetAddress.getLocalHost();

@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
 @Path("/hosts/{hostname}")
 public class SettingsResource {
 
-    String path="/home/leo/Documents/GangliaController/SettingsOutput/";
+    String path="/etc/ganglia/GangliaController/SettingsOutput/";
     @GET
     @Produces("text/json")
     public String getSettings(@PathParam("hostname")String hostName) {
