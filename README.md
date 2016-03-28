@@ -14,12 +14,12 @@ Gmetad即ganglia系统中的轮询器。对于网络中的每个集群，仅向�
 Gweb：
 Gweb即ganglia的可视化工具。Gweb无需设置即可访问网络中任意主机的任意指标数据；同时gweb可将整个集群的数据采用图标化的方式显示；gweb是一种php程序，一般而言部署在apache服务器上；由于需要与RRD交互，gweb通常与gmetad安装在相同的物理硬件上
 
-![Ganglia png](https://github.com/EscapingChocolate/GangliaController/blob/master/Ganglia.png)
+![Ganglia png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/Ganglia.png)
 
 ##GangliaController简介
 
-![GangliaControllerFrame png](https://github.com/EscapingChocolate/GangliaController/blob/master/GangliaController.png)
+![GangliaControllerFrame png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/GangliaController.png)
 
 GangliaController整体结构如上图所示
 
-其中![Program png](https://github.com/EscapingChocolate/GangliaController/blob/master/program.png)表示一个独立程序;![Module png](https://github.com/EscapingChocolate/GangliaController/blob/master/Module.png)代表程序的一个模块;![doc png](https://github.com/EscapingChocolate/GangliaController/blob/master/doc.png)表示一个文件目录;蓝色字体为Ganglia系统原有架构
+其中![Program png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/program.png)表示一个独立程序;![Module png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/Module.png)代表程序的一个模块;![doc png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/doc.png)表示一个文件目录;蓝色字体为Ganglia系统原有架构
