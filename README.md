@@ -22,4 +22,4 @@ Gweb即ganglia的可视化工具。Gweb无需设置即可访问网络中任意�
 
 GangliaController整体结构如上图所示
 
-其中![Program png](https://github.com/EscapingChocolate/GangliaController/blob/master/program.png)表示一个独立程序;![Module png](https://github.com/EscapingChocolate/GangliaController/blob/master/Module.png)代表程序的一个模块;蓝色字体为Ganglia系统原有架构
+其中![Program png](https://github.com/EscapingChocolate/GangliaController/blob/master/program.png)表示一个独立程序;![Module png](https://github.com/EscapingChocolate/GangliaController/blob/master/Module.png)代表程序的一个模块;![doc png](https://github.com/EscapingChocolate/GangliaController/blob/master/doc.png)表示一个文件目录;蓝色字体为Ganglia系统原有架构
