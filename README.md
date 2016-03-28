@@ -17,9 +17,31 @@ Gweb即ganglia的可视化工具。Gweb无需设置即可访问网络中任意�
 ![Ganglia png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/Ganglia.png)
 
 ##GangliaController简介
+针对Ganglia系统仅能完成简单的数据采集及展现工作的问题，设计了GangliaController完善Ganglia系统，以实现自动化的对远程gmond的控制，分析实时数据进行相应处理等功能.
 
 ![GangliaControllerFrame png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/GangliaController.png)
 
 GangliaController整体结构如上图所示
 
-其中![Program png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/program.png)表示一个独立程序;![Module png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/Module.png)代表程序的一个模块;![doc png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/doc.png)表示一个文件目录;蓝色字体为Ganglia系统原有架构
+其中![Program png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/program.png)表示一个独立程序;![Module png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/Module.png)表示程序的一个模块;![doc png](https://github.com/EscapingChocolate/GangliaController/blob/master/pic/doc.png)表示一个文件目录;蓝色字体为Ganglia系统原有架构
+
+###physical MonitorNode
+
+在监测节点中运行两个进程:MonitorNode和gmond
+
+gmond开启后，会根据conf.d中的配置文件定时执行监测指标采集脚本。
+
+MonitorNode开启后，Download模块轮询SettingsDistribute_Module以获取实时配置信息;Control模块得到实时配置信息后，从Dealt中调用相应的方法进行处理:例如获取到的信息中含有"Enable somemetric",则会从conf.a中将相应metric配置文件mv至conf.d中，重启gmond.
+
+###physical SummaryNode
+
+在汇总节点中包含三个进程:gmetad,SummaryNode,SettingsDistribute_Module
+
+gmetad开启后，会定时轮询指定的cluster，获取整个cluster中所有节点的实时监测数据
+
+SummaryNode开启后，会读取HostsConfig中所有节点处理规则配置文件，生成并维护每个节点的Host对象；Control_Module会定时调用DataReader获取实时监测数据，并将数据交由对应的Host对象处理；Host对象获取实时数据后，会依照配置规则调用Dealt_Module中相应的处理方式(尚未完成)，并/或生成新的节点配置更新信息文件，存储于SettingsOutput路径
+
+SettingsDistribute_Module运行于Tomcat容器，可以相应MonitorNode的GET请求，根据uri在SettingsOutput中读取对应的配置更新文件，以Json格式返回(访问权限问题尚未落实).
+
+
+
