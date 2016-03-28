@@ -123,6 +123,7 @@ public class Host {
                                 JSONObject setting = (JSONObject) settingObject;
                                 setting.get("METRIC_NAME");
                                 setting.get("HOST_NAME");
+                                setting.getDouble("PARAM");
                             }
                         }
                     }

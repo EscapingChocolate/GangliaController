@@ -1,3 +1,5 @@
+package Log;
+
 /**
  * Created by zhoulisu on 16-3-27.
  */

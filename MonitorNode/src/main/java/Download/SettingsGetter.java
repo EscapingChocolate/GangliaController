@@ -1,3 +1,5 @@
+package Download;
+
 import org.json.JSONArray;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
@@ -16,10 +18,13 @@ public class SettingsGetter {
         String hostName=addr.getHostName().toString(); //获取本机计算机名称
         */
         try {
-            response = ClientBuilder.newClient().target(summaryNodeURI+"/"+hostName).request().get();
+            String uri = summaryNodeURI+"/"+hostName;
+            response = ClientBuilder.newClient().target(uri).request().get();
             root= new JSONArray(response.readEntity(String.class));
         }
         catch (Exception e){
+            System.out.println(e.getMessage());
+            System.out.println(e.getCause());
             root=null;
         }
 

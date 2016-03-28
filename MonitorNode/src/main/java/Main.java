@@ -1,14 +1,12 @@
+import Control.GmondController;
+import Download.SettingsGetter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.management.monitor.Monitor;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.util.Map;
-import java.util.Properties;
 
 /**
  * Created by leo on 16-3-22.
@@ -22,7 +20,7 @@ public class Main {
         FileChannel fileChannel=null;
         String jsonString = "";
         try {
-            fileChannel = new FileInputStream("etc/ganglia/MonitorNodeConfig").getChannel();
+            fileChannel = new FileInputStream("/etc/ganglia/GangliaController/MonitorNodeConfig").getChannel();
             ByteBuffer buffer = ByteBuffer.allocate(1024);
 
             while (fileChannel.read(buffer) != -1) {
@@ -32,7 +30,7 @@ public class Main {
             }
         }
         catch (IOException e){
-
+            System.out.println(e.getMessage());
         }
         finally {
             try {
@@ -57,6 +55,13 @@ public class Main {
             JSONArray realTimeSettings=settingsGetter.getRoot();
             if(realTimeSettings!=null) {
                 gmondController.SingleSettingsDealt(realTimeSettings);
+            }
+            try {
+                Thread thread = Thread.currentThread();
+                thread.sleep(5000);
+            }
+            catch (InterruptedException e){
+
             }
         }
     }

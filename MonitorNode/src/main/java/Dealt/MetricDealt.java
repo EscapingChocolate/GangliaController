@@ -1,3 +1,5 @@
+package Dealt;
+
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -12,7 +14,7 @@ public class MetricDealt {
     private static String confaPath = "/etc/ganglia/conf.a/";
 
     //功能脚本存储路径
-    private static String shPath = "/etc/ganglia/sh/";
+    private static String shPath = "/etc/ganglia/GangliaController/sh/";
 
     private static void GmondRestart(){
         try {
@@ -41,6 +43,7 @@ public class MetricDealt {
             Process process=Runtime.getRuntime().exec(cmd);
             process.waitFor();
             GmondRestart();
+            System.out.println("Enable!"+metricName);
         }
         catch (Exception e){
 
@@ -51,6 +54,7 @@ public class MetricDealt {
             String cmd[]=new String[]{"sh",shPath+"Move.sh",confdPath+metricName+".conf",confaPath+metricName+".conf"};
             Process process=Runtime.getRuntime().exec(cmd);
             GmondRestart();
+            System.out.println("Disable!"+metricName);
         }
         catch (Exception e){
 

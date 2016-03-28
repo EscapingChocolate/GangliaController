@@ -1,3 +1,6 @@
+package Control;
+
+import Dealt.MetricDealt;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +50,7 @@ public class GmondController {
             }
         }
         catch (JSONException e){
-
+            System.out.println(e.getMessage());
         }
     }
 }
