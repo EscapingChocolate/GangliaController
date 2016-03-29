@@ -122,6 +122,7 @@ public class Hosts {
                 fileChannel.write(ByteBuffer.wrap((new JSONArray(hostSettingsAlterRecord.getSettingsRecord())).toString().getBytes()));
                 fileChannel.close();
                 System.out.println("write settings:");
+                hostsSettingsAlterRecord.clear();
             }
             catch (IOException e) {
                 System.out.println(e.toString());
