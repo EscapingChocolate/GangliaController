@@ -1,6 +1,6 @@
+
 import Control_Module.Hosts;
 import org.json.JSONObject;
-
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -26,12 +26,11 @@ public class Main {
         gmetadURI=summaryNodeConfig.getString("GMETAD_URI");
         settingsUpdateFilePath=summaryNodeConfig.getString("SETTINGS_UPDATE_FILE_PATH");
 
-
         Hosts theMainHosts=new Hosts(hostsConfigPath);
         while (true) {
             theMainHosts.SettingsUpdate(gmetadURI,settingsUpdateFilePath);
             Thread thread = Thread.currentThread();
-            thread.sleep(5000);
+            thread.sleep(1000);
         }
 
     }

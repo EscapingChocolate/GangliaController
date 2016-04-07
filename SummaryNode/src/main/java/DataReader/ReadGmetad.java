@@ -2,7 +2,6 @@ package DataReader;
 
 
 import org.json.*;
-
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Response;
 

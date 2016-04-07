@@ -44,8 +44,8 @@ SummaryNode开启后，会读取HostsConfig中所有节点处理规则配置文�
 SettingsDistribute_Module运行于Tomcat容器，可以相应MonitorNode的GET请求，根据uri在SettingsOutput中读取对应的配置更新文件，以Json格式返回(访问权限问题尚未落实).
 
 
-    hostConfig有效结构：
-    {
+HostConfig文件格式
+{
         “HOST_NAME":"<name>",
         "METRICS":ff
             [
@@ -56,7 +56,6 @@ SettingsDistribute_Module运行于Tomcat容器，可以相应MonitorNode的GET�
                         [
                             (section)
                             {
-                                "SECTION_ID":"<sectionID>"
                                 "DOMAINS":
                                     [
                                         (domain)
@@ -67,12 +66,11 @@ SettingsDistribute_Module运行于Tomcat容器，可以相应MonitorNode的GET�
                                 [
                                     (action)
                                     {
-                                        "ACTION_ID":"<action_ID>"
-                                        "ACTION_EVERY":"<action_every>"(if <action_every> == -1 ,action only once)
                                         (if "ACTION_TYPE"=="ALARM")
                                         {
                                             "ACTION_TYPE":"ALARM",
-
+                                            "ALARM_EVERY":"<alarm_every>,
+                                            "ALARM_ONCE":"true|false",
                                         }
                                         (if "ACTION_TYPE"=="SETTINGS_ALTER")
                                         {
@@ -100,9 +98,8 @@ SettingsDistribute_Module运行于Tomcat容器，可以相应MonitorNode的GET�
                 (metric)
                 ......
             ]
-    }
-    (大括号域内为JSONObject，中括号域内为JSONArray；小括号内为Array的元素，无意义）
-    
+}
+(大括号域内为JSONObject，中括号域内为JSONArray；小括号内为Array的元素，无意义）
 
 
 
