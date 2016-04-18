@@ -7,11 +7,12 @@ import javax.ws.rs.Produces;
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.Date;
 
 /**
  * Created by leo on 16-3-21.
  */
-@Path("/hosts/{hostname}")
+@Path("/hosts/{hostname}/")
 public class SettingsResource {
 
     String path="/etc/ganglia/GangliaController/SettingsOutput/";
@@ -34,7 +35,7 @@ public class SettingsResource {
             jsonString="{}";
         }
         finally {
-            System.out.println("return");
+            System.out.println("return"+System.currentTimeMillis());
             return jsonString;
         }
     }

@@ -1,5 +1,6 @@
 package Alarm_Module;
 
+import Log.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 import javax.ws.rs.client.*;
@@ -8,14 +9,16 @@ import javax.ws.rs.core.Response;
 /**
  * Created by zhoulisu on 16-4-6.
  */
-public class Wechat {
-    private static String corpid = "wxd36e6a72647bf8d7";
-    private static String secret = "UWM5LQjsMsu5T8W4yfpxlio82NczGpG-1wxN2-ljn9sL8CAjekMjqymbzkBy2UkT";
-    private static String getAccess_token_URL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid="+corpid+"&corpsecret="+secret;
+public class Wechat implements Log{
+    private static final String corpid = "wxd36e6a72647bf8d7";
+    private static final String secret = "UWM5LQjsMsu5T8W4yfpxlio82NczGpG-1wxN2-ljn9sL8CAjekMjqymbzkBy2UkT";
+    private static final String getAccess_token_URL = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid="+corpid+"&corpsecret="+secret;
     private static String access_token;
     private static long expires_in;
     private static long lasttime = 0;
     private static String postURL = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=";
+
+    public void log(String logText){}
 
     public Wechat(){
         if((System.currentTimeMillis()-lasttime)>(expires_in-200)*1000) {

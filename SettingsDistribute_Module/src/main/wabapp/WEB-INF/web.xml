@@ -8,7 +8,7 @@
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jerseu.config.property.packages</param-name>
-            <param-value>Distribute</param-value>
+            <param-value>Distribute,Receive</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>

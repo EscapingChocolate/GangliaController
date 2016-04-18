@@ -1,8 +1,12 @@
 package Control_Module;
 
 import Alarm_Module.Wechat;
+import Log.Log;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -210,8 +214,10 @@ public class Host {
                             JSONObject action = (JSONObject) actionObject;
                             if(CheckActionEvery(action.getLong("ACTION_EVERY"),metricConfig.getString("METRIC_NAME"),section.getString("SECTION_ID"),action.getString("ACTION_ID"))) {
                                 if (action.getString("ACTION_TYPE").equals("ALARM")) {
-                                    Wechat wechat = new Wechat();
+                                    ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring-config.xml");
+                                    Wechat wechat = (Wechat)appCtx.getBean("wechatProxy");
                                     wechat.SendMessage(realTimeSingleMetricInfo.getString("NAME") + " is " + realTimeSingleMetricInfo.getDouble("VAL") + " now.");
+                                    wechat.log("aaa");
                                 } else if (action.getString("ACTION_TYPE").equals("SETTINGS_ALTER")) {
                                     //将settings全部写入settingsAlterInfo
                                     for (Object settingObject : action.getJSONArray("SETTINGS")) {

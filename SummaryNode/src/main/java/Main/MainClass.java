@@ -1,5 +1,7 @@
+package Main;
 
 import Control_Module.Hosts;
+import MessageReceive.ReceiveFromServer;
 import org.json.JSONObject;
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
@@ -8,8 +10,15 @@ import java.nio.channels.FileChannel;
 /**
  * Created by leo on 16-3-17.
  */
-public class Main {
+public class MainClass {
+
+    static String messageFromServer = "";
+
     public static void main(String[] args) throws Exception{
+
+        Thread listenThread = new Thread(new ReceiveFromServer());
+        listenThread.start();
+
         FileChannel fileChannel=new FileInputStream("/etc/ganglia/GangliaController/SummaryNodeConfig").getChannel();
         ByteBuffer buffer=ByteBuffer.allocate(1024);
         String jsonString="";

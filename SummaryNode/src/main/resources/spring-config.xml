@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="wechat" class="Alarm_Module.Wechat">
+    </bean>
+    <bean id = "logHelper" class="Log.LogHelper">
+    </bean>
+    <bean id = "pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+        <property name="pattern" value=".*log"/>
+    </bean>
+    <bean id = "advisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+        <property name="advice" ref="logHelper"></property>
+        <property name="pointcut" ref="pointcut"></property>
+    </bean>
+    <bean id="wechatProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="proxyTargetClass" value="true"></property>
+        <property name="target" ref="wechat"/>
+        <property name="interceptorNames" value="advisor" />
+    </bean>
+
+</beans>

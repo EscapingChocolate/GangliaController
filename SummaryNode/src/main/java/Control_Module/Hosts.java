@@ -74,7 +74,7 @@ public class Hosts {
                 hostSet.add(new Host(path+"/"+configFilePath));
             }
             catch (Exception e){
-
+                System.out.println("host create failed for "+e.getMessage());
             }
         }
     }
@@ -127,5 +127,6 @@ public class Hosts {
                 System.out.println(e.toString());
             }
         }
+        System.out.println("write finish");
     }
 }

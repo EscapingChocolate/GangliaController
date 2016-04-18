@@ -11,6 +11,7 @@
           <element id="library" level="project" name="Maven: javax.ws.rs:jsr311-api:1.1.1" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-server:1.19.1" />
           <element id="library" level="project" name="Maven: com.sun.jersey:jersey-servlet:1.19.1" />
+          <element id="library" level="project" name="Maven: org.json:json:20160212" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="SettingsDistribute_Module/web/Web" />
