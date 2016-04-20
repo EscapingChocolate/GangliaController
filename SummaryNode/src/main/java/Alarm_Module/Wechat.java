@@ -35,10 +35,10 @@ public class Wechat implements Log{
         System.out.println(expires_in);
     }
 
-    public void SendMessage(String message){
+    public void SendMessage(String message,String userID){
 
         String param = new String("{\n" +
-                "   \"touser\": \"@all\",\n" +
+                "   \"touser\": \""+ userID +"\",\n" +
                 "   \"msgtype\": \"text\",\n" +
                 "   \"agentid\": 0,\n" +
                 "   \"text\": {\n" +

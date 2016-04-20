@@ -1,20 +1,12 @@
 package Receive;
 
-import com.sun.deploy.net.HttpRequest;
-import com.sun.jersey.api.core.HttpContext;
-import com.sun.jersey.core.impl.provider.entity.XMLJAXBElementProvider;
+import Dealt.WechatReceiveDealt;
+import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 import org.json.JSONObject;
 import org.json.XML;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Unmarshaller;
-
-import java.io.StringReader;
-
-import static javafx.scene.input.KeyCode.T;
-
+import javax.xml.ws.spi.http.HttpContext;
 
 /**
  * Created by zhoulisu on 16-4-13.//166.111.68.197:11284
@@ -22,32 +14,52 @@ import static javafx.scene.input.KeyCode.T;
 @Path("/wechatreceive")
 public class ReceiveFromWechat {
     public static String wechatMessage = "";
-    @POST
-    @Consumes("application/xml")
-    public String Receive(@Context HttpContext httpContext){
-        String xml = httpContext.getRequest().getEntity(String.class);
-        JSONObject receiveContext = XML.toJSONObject(xml);
-        System.out.println(receiveContext);
-        return "ok";
-    }
+    private final String token = "zhoulisu";
+    private final String encodingAESKey = "enE8jlfxe1sP7bI8nKRd0UCZ3r4MgJkR8WvxB0STz2t";
+    private final String corpID = "wxd36e6a72647bf8d7";
 
-    @GET
-    @Consumes("application/x-www-form-urlencoded")
-    public String Check(){
+    //receive text from wechat
+    @POST
+    public String Receive(String raw, @QueryParam("msg_signature")String msg_signature, @QueryParam("timestamp")String timestamp, @QueryParam("nonce")String nonce){
+        try {
+            //String raw = httpContext.getRequest().getEntity(String.class);
+            WXBizMsgCrypt wxcpt = new WXBizMsgCrypt(token, encodingAESKey, corpID);
+            String xml = wxcpt.DecryptMsg(msg_signature, timestamp, nonce, raw);
+            JSONObject root = XML.toJSONObject(xml);
+            JSONObject xmljson = root.getJSONObject("xml");
+
+            String content = xmljson.getString("Content");
+            Long createTime = xmljson.getLong("CreateTime");
+            String toUserName = xmljson.getString("ToUserName");
+            String fromUserName = xmljson.getString("FromUserName");
+            String msgType = xmljson.getString("MsgType");
+            int agentID = xmljson.getInt("AgentID");
+            Long msgId = xmljson.getLong("MsgId");
+
+            String responseText = WechatReceiveDealt.wechatContentDealt(content,fromUserName);
+            String sRespData = "<xml><ToUserName><![CDATA["+fromUserName+"]]></ToUserName><FromUserName><![CDATA["+toUserName+"]]></FromUserName><CreateTime>"+System.currentTimeMillis()+"</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA["+responseText+"]]></Content><MsgId>"+msgId+"</MsgId><AgentID>"+agentID+"</AgentID></xml>";
+            return wxcpt.EncryptMsg(sRespData,timestamp,nonce);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
         return "";
     }
 
+    //verifyURL
 
-
-    private <T> T converyToJavaBean(String xml, Class<T> c){
-        T t = null;
+    @GET
+    public String Check(@QueryParam("msg_signature")String msg_signature,@QueryParam("timestamp")String timestamp,@QueryParam("nonce")String nonce,@QueryParam("echostr")String echostr)
+    {
         try {
-            JAXBContext context = JAXBContext.newInstance(c);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            t = (T) unmarshaller.unmarshal(new StringReader(xml));
-        } catch (Exception e) {
+            WXBizMsgCrypt wxcpt = new WXBizMsgCrypt(token, encodingAESKey, corpID);
+            String returnechostr =wxcpt.VerifyURL(msg_signature, timestamp, nonce, echostr);
+            return returnechostr;
+        }
+        catch (Exception e){
             e.printStackTrace();
         }
-        return t;
+        return "";
     }
+
 }

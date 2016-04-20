@@ -216,7 +216,7 @@ public class Host {
                                 if (action.getString("ACTION_TYPE").equals("ALARM")) {
                                     ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring-config.xml");
                                     Wechat wechat = (Wechat)appCtx.getBean("wechatProxy");
-                                    wechat.SendMessage(realTimeSingleMetricInfo.getString("NAME") + " is " + realTimeSingleMetricInfo.getDouble("VAL") + " now.");
+                                    wechat.SendMessage(realTimeSingleMetricInfo.getString("NAME") + " is " + realTimeSingleMetricInfo.getDouble("VAL") + " now.","zhoulisu");
                                     wechat.log("aaa");
                                 } else if (action.getString("ACTION_TYPE").equals("SETTINGS_ALTER")) {
                                     //将settings全部写入settingsAlterInfo

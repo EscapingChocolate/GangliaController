@@ -1,4 +1,4 @@
-﻿import java.io.StringReader;
+import java.io.StringReader;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -125,7 +125,7 @@ public class Sample {
 			System.out.println("after encrypt sEncrytMsg: " + sEncryptMsg);
 			// 加密成功
 			// TODO:
-			// HttpUtils.SetResponse(sEncryptMsg);
+			 //HttpUtils.SetResponse(sEncryptMsg);
 		}
 		catch(Exception e)
 		{

@@ -34,12 +34,12 @@ public class MainClass {
         hostsConfigPath=summaryNodeConfig.getString("HOSTS_CONFIG_PATH");
         gmetadURI=summaryNodeConfig.getString("GMETAD_URI");
         settingsUpdateFilePath=summaryNodeConfig.getString("SETTINGS_UPDATE_FILE_PATH");
-
+        int period = summaryNodeConfig.getInt("PERIOD");
         Hosts theMainHosts=new Hosts(hostsConfigPath);
         while (true) {
             theMainHosts.SettingsUpdate(gmetadURI,settingsUpdateFilePath);
             Thread thread = Thread.currentThread();
-            thread.sleep(1000);
+            thread.sleep(period);
         }
 
     }

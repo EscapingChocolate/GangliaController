@@ -58,7 +58,7 @@ public class Main {
             }
             try {
                 Thread thread = Thread.currentThread();
-                thread.sleep(5000);
+                thread.sleep(period);
             }
             catch (InterruptedException e){
 
