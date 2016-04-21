@@ -35,7 +35,7 @@ public class SettingsResource {
             jsonString="{}";
         }
         finally {
-            System.out.println("return"+System.currentTimeMillis());
+            //System.out.println("return"+System.currentTimeMillis());
             return jsonString;
         }
     }

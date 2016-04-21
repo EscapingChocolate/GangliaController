@@ -62,7 +62,7 @@ public class MetricDealt {
     }
 
 
-    public static void ChangeProperty(String metricName,String propertyName,int param){
+    public static void ChangeProperty(String metricName,String propertyName,String param){
         try {
             File theChangedFile = new File(confdPath + metricName+".conf");
             BufferedReader reader = new BufferedReader(new FileReader(theChangedFile));
@@ -74,7 +74,7 @@ public class MetricDealt {
                 }
                 wholeString+=lineString+"\n";
             }
-            System.out.println(wholeString);
+            //System.out.println(wholeString);
             reader.close();
             FileChannel fileChannel = new FileOutputStream(confdPath+metricName+".conf").getChannel();
             fileChannel.write(ByteBuffer.wrap(wholeString.getBytes()));

@@ -17,7 +17,7 @@ public class GmondController {
     //处理单次setting
     public void SingleSettingsDealt(JSONArray realTimeSettings){
         String act=null,metricName=null;
-        double param;
+        String param;
         try {
             //如果与上次setting不同则处理
             if (!CheckSame(realTimeSettings)) {
@@ -25,7 +25,7 @@ public class GmondController {
                     JSONObject setting = (JSONObject) settingObject;
                     act = setting.getString("ACT");
                     metricName = setting.getString("METRIC_NAME");
-                    param = setting.getDouble("PARAM");
+                    param = setting.getString("PARAM");
 
                     //使metric生效
                     if (act.equals("ENABLE")) {
@@ -37,11 +37,11 @@ public class GmondController {
                     }
                     //修改指定metric的collect_every参数
                     else if (act.equals("COLLECT_EVERY")) {
-                        MetricDealt.ChangeProperty(metricName, "collect_every", (int) param);
+                        MetricDealt.ChangeProperty(metricName, "collect_every",  param);
                     }
                     //修改制定metric的value_threshold参数
                     else if (act.equals("VALUE_THRESHOLD")) {
-                        MetricDealt.ChangeProperty(metricName, "value_threshold", (int) param);
+                        MetricDealt.ChangeProperty(metricName, "value_threshold", param);
                     }
 
                 }

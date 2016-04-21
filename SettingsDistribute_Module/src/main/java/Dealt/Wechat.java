@@ -28,11 +28,11 @@ public class Wechat {
                 access_token = retrunString.getString("access_token");
                 expires_in = retrunString.getInt("expires_in");
             } catch (JSONException e) {
-                System.out.println(e.getMessage());
+                e.printStackTrace();
             }
         }
-        System.out.println(access_token);
-        System.out.println(expires_in);
+        //System.out.println(access_token);
+        //System.out.println(expires_in);
     }
 
     public void SendMessage(String message,String userID){
@@ -49,7 +49,7 @@ public class Wechat {
 
         Invocation.Builder builder = ClientBuilder.newClient().target(postURL+access_token).request();
         Response response = builder.post(Entity.entity(param,"application/x-www-form-urlencoded"));
-        System.out.println(response.readEntity(String.class));
+        //System.out.println(response.readEntity(String.class));
 
     }
 }

@@ -1,4 +1,5 @@
 import Control.GmondController;
+import Control.WechatCommandAnalyse;
 import Download.SettingsGetter;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,15 +47,21 @@ public class Main {
 
         JSONObject monitorNodeConfig=new JSONObject(jsonString);
         String summaryNodeURI = monitorNodeConfig.getString("SUMMARY_NODE_URI");//分析节点uri
+        String wechatCommandURI = monitorNodeConfig.getString("WECHAT_COMMAND_URI");
         String hostName = monitorNodeConfig.getString("HOST_NAME");//本机hostname，须与summarynode配置文件一致
         int period = monitorNodeConfig.getInt("PERIOD");//轮询summarynode的周期
         //
         GmondController gmondController=new GmondController();
         while (true){
             SettingsGetter settingsGetter=new SettingsGetter(summaryNodeURI,hostName);
+            SettingsGetter wecahtCommandGetter = new SettingsGetter(wechatCommandURI,hostName);
             JSONArray realTimeSettings=settingsGetter.getRoot();
+            JSONArray wechatCommands = wecahtCommandGetter.getRoot();
             if(realTimeSettings!=null) {
                 gmondController.SingleSettingsDealt(realTimeSettings);
+            }
+            if(wechatCommands!=null){
+                WechatCommandAnalyse.Analyse(wechatCommands,hostName);
             }
             try {
                 Thread thread = Thread.currentThread();
