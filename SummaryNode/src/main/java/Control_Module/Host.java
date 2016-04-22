@@ -47,9 +47,9 @@ import java.util.Set;
                                             "ACTION_TYPE":"ALARM",
 
                                         }
-                                        (if "ACTION_TYPE"=="SETTINGS_ALTER")
+                                        (if "ACTION_TYPE"=="DO_SCRIPT")
                                         {
-                                            "ACTION_TYPE"=="SETTINGS_ALTER",
+                                            "ACTION_TYPE"=="DO_SCRIPT",
                                             "SETTINGS":
                                                 [
                                                     (setting)
@@ -149,12 +149,13 @@ public class Host {
                         action.getLong("ACTION_EVERY");
                         if (action.getString("ACTION_TYPE").equals("ALARM")) {
                             //action.get("ALARM_METHOD");
-                        } else if (action.getString("ACTION_TYPE").equals("SETTINGS_ALTER")) {
+                        } else if (action.getString("ACTION_TYPE").equals("DO_SCRIPT")) {
                             for (Object settingObject : action.getJSONArray("SETTINGS")) {
                                 JSONObject setting = (JSONObject) settingObject;
-                                setting.get("METRIC_NAME");
+                                //setting.get("METRIC_NAME");
                                 setting.get("HOST_NAME");
-                                setting.getDouble("PARAM");
+                                setting.getJSONObject("PARAMS");
+                                setting.get("ACT");
                             }
                         }
                     }
@@ -218,7 +219,7 @@ public class Host {
                                     Wechat wechat = (Wechat)appCtx.getBean("wechatProxy");
                                     wechat.SendMessage(realTimeSingleMetricInfo.getString("NAME") + " is " + realTimeSingleMetricInfo.getDouble("VAL") + " now.","zhoulisu");
                                     wechat.log("aaa");
-                                } else if (action.getString("ACTION_TYPE").equals("SETTINGS_ALTER")) {
+                                } else if (action.getString("ACTION_TYPE").equals("DO_SCRIPT")) {
                                     //将settings全部写入settingsAlterInfo
                                     for (Object settingObject : action.getJSONArray("SETTINGS")) {
                                         settingsAlterInfo.add((JSONObject) settingObject);

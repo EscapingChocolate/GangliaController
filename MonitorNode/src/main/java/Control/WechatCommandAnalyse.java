@@ -12,6 +12,8 @@ public class WechatCommandAnalyse {
     public static void Analyse(JSONArray wechatCommands,String hostName){
         for(Object object:wechatCommands){
             JSONObject command = (JSONObject)object;
+
+            
             System.out.println(command.toString());
             String commandOutput = command.toString().replace("{"," ").replace("}"," ").replace("\""," ");
             String action=null;

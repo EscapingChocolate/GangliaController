@@ -4,6 +4,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import java.io.File;
 import java.io.FileInputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
@@ -29,16 +30,28 @@ public class SettingsResource {
                 jsonString+=new String(buffer.array(),0,buffer.limit());
                 buffer.clear();
             }
+            deleteFile(path+hostName);
+            fileChannel.close();
         }
         catch (Exception e){
             System.out.println(e.getMessage());
-            jsonString="{}";
+            jsonString="[]";
         }
         finally {
             //System.out.println("return"+System.currentTimeMillis());
+
             return jsonString;
         }
     }
-
+    private boolean deleteFile(String sPath) {
+        boolean flag = false;
+        File file = new File(sPath);
+        // 路径为文件且不为空则进行删除
+        if (file.isFile() && file.exists()) {
+            file.delete();
+            flag = true;
+        }
+        return flag;
+    }
 
 }
