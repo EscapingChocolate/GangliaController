@@ -34,8 +34,8 @@ public class Wechat {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println(access_token);
-        System.out.println(expires_in);
+        //System.out.println(access_token);
+        //System.out.println(expires_in);
     }
 
     public boolean SendMessage(String message,String userID) {

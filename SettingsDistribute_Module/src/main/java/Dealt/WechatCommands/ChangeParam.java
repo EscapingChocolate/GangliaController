@@ -46,6 +46,6 @@ public class ChangeParam implements Command{
         String paramName = commandRecord.getString("ParamName");
         String paramValue = commandRecord.getString("ParamValue");
         Wechat wechat = new Wechat();
-        wechat.SendMessage("Command Enable "+hostName+" "+metricName+" "+paramName+" "+paramValue+" get by host",userID);
+        wechat.SendMessage("Command ChangeParam "+hostName+" "+metricName+" "+paramName+" "+paramValue+" get by host",userID);
     }
 }

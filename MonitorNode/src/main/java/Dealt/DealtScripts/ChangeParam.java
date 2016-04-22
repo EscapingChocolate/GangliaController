@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
 /**
  * Created by zhoulisu on 16-4-22.
  */
-public class ChangeProperty implements DealtScript {
+public class ChangeParam implements DealtScript {
     public boolean Dealt(JSONObject params) {
         try {
 
