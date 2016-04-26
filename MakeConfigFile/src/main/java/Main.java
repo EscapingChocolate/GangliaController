@@ -51,7 +51,7 @@ public class Main {
                 for(int k=0;k<domainNum;k++){
                     JSONObject domain = new JSONObject();
                     domains.put(domain);/////
-                    System.out.println("            enter the mod of domain"+k+":1 for min only;2 for max only;3 for both");
+                    System.out.println("            enter the mod of domain"+k+":1 for min only;2 for max only;3 for both;4 for always");
                     System.out.print("            ");
                     int mod = scanner.nextInt();
                     nouse = scanner.nextLine();
@@ -62,6 +62,7 @@ public class Main {
                             System.out.print("            ");
                             String min = scanner.nextLine();
                             domain.put("MIN",min);
+                            domain.put("ALWAYS","false");
                             break;
                         }
                         else if (mod == 2) {
@@ -69,6 +70,7 @@ public class Main {
                             System.out.print("            ");
                             String max = scanner.nextLine();
                             domain.put("MAX",max);
+                            domain.put("ALWAYS","false");
                             break;
                         }
                         else if (mod == 3) {
@@ -80,6 +82,11 @@ public class Main {
                             String max = scanner.nextLine();
                             domain.put("MIN",min);
                             domain.put("MAX",max);
+                            domain.put("ALWAYS","false");
+                            break;
+                        }
+                        else if(mod == 4){
+                            domain.put("ALWAYS","true");
                             break;
                         }
                         else {
@@ -158,7 +165,7 @@ public class Main {
                                     System.out.println("                    enter name of param"+n);
                                     System.out.print("                    ");
                                     String paramName = scanner.nextLine();
-                                    System.out.println("                    enter name of param"+n);
+                                    System.out.println("                    enter value of param"+n);
                                     System.out.print("                    ");
                                     String paramValue = scanner.nextLine();
                                     params.put(paramName,paramValue);

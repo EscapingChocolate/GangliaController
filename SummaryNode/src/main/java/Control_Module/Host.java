@@ -136,11 +136,14 @@ public class Host {
                     JSONArray domains=section.getJSONArray("DOMAINS");
                     for(Object domainObject:domains){
                         JSONObject domain=(JSONObject)domainObject;
-                        if((!domain.has("MIN"))&&(!domain.has("MAX"))){
-                            throw new Exception("NO MAX OR MIN");
+                        if((!domain.has("MIN"))&&(!domain.has("MAX")&&!(domain.has("ALWAYS")))){
+                            throw new Exception("NO MAX OR MIN OR ALWAYS");
                         }
                         if((domain.has("MAX"))&&(domain.has("MIN"))&&(domain.getDouble("MAX")<domain.getDouble("MIN"))){
                             throw new Exception("MAX<MIN");
+                        }
+                        if(!domain.has("ALWAYS")){
+                            throw new Exception(("NO ALWAYS"));
                         }
                     }
                     for(Object actionObject:section.getJSONArray("ACTIONS")) {
@@ -189,8 +192,12 @@ public class Host {
                     //判断VAL是否在有效域内
                     for(Object domainObject:section.getJSONArray("DOMAINS")){
                         JSONObject domain=(JSONObject)domainObject;
+                        if(domain.getString("ALWAYS").equals("true")){
+                            inDomains = true;
+                            break;
+                        }
 
-                        if(domain.has("MAX")&&(!domain.has("MIN"))){
+                        else if(domain.has("MAX")&&(!domain.has("MIN"))){
                             if(realTimeSingleMetricInfo.getDouble("VAL")<domain.getDouble("MAX")){
                                 inDomains=true;
                                 break;
