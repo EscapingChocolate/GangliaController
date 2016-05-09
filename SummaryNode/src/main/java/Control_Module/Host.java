@@ -136,15 +136,19 @@ public class Host {
                     JSONArray domains=section.getJSONArray("DOMAINS");
                     for(Object domainObject:domains){
                         JSONObject domain=(JSONObject)domainObject;
+                        /*
                         if((!domain.has("MIN"))&&(!domain.has("MAX")&&!(domain.has("ALWAYS")))){
                             throw new Exception("NO MAX OR MIN OR ALWAYS");
                         }
+                        */
                         if((domain.has("MAX"))&&(domain.has("MIN"))&&(domain.getDouble("MAX")<domain.getDouble("MIN"))){
                             throw new Exception("MAX<MIN");
                         }
+                        /*
                         if(!domain.has("ALWAYS")){
                             throw new Exception(("NO ALWAYS"));
                         }
+                        */
                     }
                     for(Object actionObject:section.getJSONArray("ACTIONS")) {
                         JSONObject action=(JSONObject)actionObject;
@@ -192,7 +196,7 @@ public class Host {
                     //判断VAL是否在有效域内
                     for(Object domainObject:section.getJSONArray("DOMAINS")){
                         JSONObject domain=(JSONObject)domainObject;
-                        if(domain.getString("ALWAYS").equals("true")){
+                        if(domain.has("ALAWAYS")&&domain.getString("ALWAYS").equals("true")){
                             inDomains = true;
                             break;
                         }
@@ -215,6 +219,18 @@ public class Host {
                                 break;
                             }
                         }
+                        else if(domain.has("MATCHSTRING")){
+                            if(realTimeSingleMetricInfo.getString("VAL").equals(domain.getString("MATCHSTRING"))){
+                                inDomains = true;
+                                break;
+                            }
+                        }
+                        else if(domain.has("NOTMATCHSTRING")){
+                            if(!realTimeSingleMetricInfo.getString("VAL").equals(domain.getString("NOTMATCHSTRING"))){
+                                inDomains = true;
+                                break;
+                            }
+                        }
                     }
 
                     if(inDomains){
@@ -224,7 +240,7 @@ public class Host {
                                 if (action.getString("ACTION_TYPE").equals("ALARM")) {
                                     ApplicationContext appCtx = new ClassPathXmlApplicationContext("spring-config.xml");
                                     Wechat wechat = (Wechat)appCtx.getBean("wechatProxy");
-                                    wechat.SendMessage(realTimeSingleMetricInfo.getString("NAME") + " is " + realTimeSingleMetricInfo.getDouble("VAL") + " now.","zhoulisu");
+                                    wechat.SendMessage(realTimeSingleMetricInfo.getString("NAME") + " is " + realTimeSingleMetricInfo.getString("VAL") + " now.","zhoulisu");
                                     wechat.log("aaa");
                                 } else if (action.getString("ACTION_TYPE").equals("DO_SCRIPT")) {
                                     //将settings全部写入settingsAlterInfo

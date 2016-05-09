@@ -35,7 +35,7 @@ public class WechatMessageDistrubute {
             return host.toString();
         }
         catch (JSONException e) {
-
+            e.printStackTrace();
         }
         catch (ClassNotFoundException e){
             e.printStackTrace();

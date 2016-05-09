@@ -51,7 +51,7 @@ public class Main {
                 for(int k=0;k<domainNum;k++){
                     JSONObject domain = new JSONObject();
                     domains.put(domain);/////
-                    System.out.println("            enter the mod of domain"+k+":1 for min only;2 for max only;3 for both;4 for always");
+                    System.out.println("            enter the mod of domain"+k+":1 for min only;2 for max only;3 for both;4 for always;5 for match string;6 for not match string");
                     System.out.print("            ");
                     int mod = scanner.nextInt();
                     nouse = scanner.nextLine();
@@ -87,6 +87,20 @@ public class Main {
                         }
                         else if(mod == 4){
                             domain.put("ALWAYS","true");
+                            break;
+                        }
+                        else if(mod == 5){
+                            System.out.println("            enter the string");
+                            System.out.print("            ");
+                            String str = scanner.nextLine();
+                            domain.put("MATCHSTRING",str);
+                            break;
+                        }
+                        else if(mod == 6){
+                            System.out.println("            enter the string");
+                            System.out.print("            ");
+                            String str = scanner.nextLine();
+                            domain.put("NOTMATCHSTRING",str);
                             break;
                         }
                         else {

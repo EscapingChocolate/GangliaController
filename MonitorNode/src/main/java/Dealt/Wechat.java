@@ -60,7 +60,7 @@ public class Wechat {
                 }
             }
             catch (Exception e){
-
+                e.printStackTrace();
             }
         }
         return false;

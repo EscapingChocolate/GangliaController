@@ -124,7 +124,7 @@ public class Hosts {
                 hostsSettingsAlterRecord.clear();
             }
             catch (IOException e) {
-                System.out.println(e.toString());
+                e.printStackTrace();
             }
         }
         System.out.println("write finish");
